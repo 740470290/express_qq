@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>聊天室</title>
+    <style>
+        .show{
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            overflow-y:scroll;
+            overflow-x:hidden;
+            table-layout: fixed;
+            word-wrap:break-word;
+            word-break:break-all;
+        }
+    </style>
+</head>
+<body>
+<h1>聊天室</h1>
+<p>Welcome</p>
+<div class="show"></div>
+    <textarea name="text" id="text" cols="50" rows="10"></textarea>
+    <input id="a" type="submit">
+<script src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
+<script>
+const socket = io.connect('ws://172.17.14.250');
+const text=document.querySelector('#text');
+const show=document.querySelector('.show');
+socket.on('msgs', function (data) {
+console.log(data);
+show.innerHTML+='匿名用户:'+data.serverMsg+'<br>';
+show.scrollTop = show.scrollHeight;
+});
+text.onkeydown=function (e) {
+ if(event.keyCode==13)
+    {
+        e.preventDefault();
+        if(this.value.trim().length>0&&this.value.trim().length<10){
+            socket.emit('send', { msg: this.value });
+            console.log(this.value);
+            this.value=''
+        }
+    }
+}
+</script>
+</body>
+</html>
