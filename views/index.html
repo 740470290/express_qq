@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>聊天室</title>
+    <link rel="stylesheet" href="../public/css/index.css">
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">-->
+</head>
+<body>
+<div class="container">
+    <h1>聊天室</h1>
+    <p class="welcome">Welcome</p>
+    <div class="show"></div>
+    <div class="content">
+        <textarea autofocus required name="text" id="text" maxlength="100"></textarea>
+        <span class="desc">按下Ctrl+Enter换行</span>
+        <div class="btn_send">发送</div>
+    </div>
+    <div class="login">
+        <form action="" onsubmit="return false">
+            <input type="text" placeholder="请输入用户名" autofocus class="input">
+            <input type="submit" class="submit">
+        </form>
+    </div>
+</div>
+<script src="../public/js/socket.js"></script>
+<script src="../public/js/index.js"></script>
+</body>
+</html>

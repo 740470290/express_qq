@@ -1,11 +1,14 @@
-var app = require('express')()
-  , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
-
+const express = require('express');
+const app=express();
+// const cookieParser=require('cookie-parser');
+// app.use(cookieParser());
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
+app.use('/public', express.static('public'));
 server.listen(80);
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 io.sockets.on('connection', function (socket) {
@@ -13,6 +16,6 @@ io.sockets.on('connection', function (socket) {
   //   console.log(socket)
   socket.on('send', function (data) {
     console.log(data);
-    io.emit('msgs', { serverMsg: data.msg });
+    io.emit('msgs', {name:data.name, serverMsg: data.msg });
   });
 });
